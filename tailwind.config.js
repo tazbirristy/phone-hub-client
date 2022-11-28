@@ -5,8 +5,8 @@ module.exports = {
     themes: [
       {
         carhuttheme: {
-          primary: "#B9345A",
-          secondary: "#FF6263",
+          primary: "#383CC1",
+          secondary: "#1B98F5",
           accent: "#3A4256",
           neutral: "#3D4451",
           "base-100": "#FFFFFF",
