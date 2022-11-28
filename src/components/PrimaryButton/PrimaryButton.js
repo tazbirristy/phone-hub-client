@@ -1,10 +1,10 @@
 import React from "react";
 
-const PrimaryButton = () => {
+const PrimaryButton = ({ children }) => {
   return (
-    <div>
-      <h1>primary button</h1>
-    </div>
+    <button className="btn bg-gradient-to-r from-primary to-secondary border-0 text-white hover:from-secondary hover:to-primary">
+      {children}
+    </button>
   );
 };
 
