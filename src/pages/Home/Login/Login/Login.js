@@ -1,8 +1,9 @@
 import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import SmallSpinner from "./../../../../context/Loader/SmallSpinner";
+import logIn from "../../../../assets/logIn.png";
 import { AuthContext } from "../../../context/AuthProvider";
+import SmallSpinner from "./../../../../context/Loader/SmallSpinner";
 
 const Login = () => {
   const { signIn, googleProviderLogin, loading, setLoading } =
@@ -29,7 +30,7 @@ const Login = () => {
       return;
     }
     if (!/(?=.*[a-zA-Z])/.test(password)) {
-      setError("Please give one uppercase");
+      setError("Please provide one uppercase");
       return;
     }
     if (!/(?=.*[!#$@%^&*? "])/.test(password)) {
@@ -44,7 +45,7 @@ const Login = () => {
         const user = result.user;
         console.log(user);
         toast.success("User LoggedIn Successfully", { autoClose: 500 });
-        getUserToken(email);
+        navigate(from, { replace: true });
       })
       .catch((error) => {
         console.error(error.message);
@@ -68,7 +69,7 @@ const Login = () => {
           };
           console.log(user);
           // save the user information to the database
-          fetch(`https://car-hut-server.vercel.app/user/${user?.email}`, {
+          fetch(`http://localhost:5000/user/${user?.email}`, {
             method: "PUT",
             headers: {
               "content-type": "application/json",
@@ -79,7 +80,7 @@ const Login = () => {
             .then((data) => {
               console.log(data);
               toast.success("User Register Successfully", { autoClose: 500 });
-              getUserToken(user.email);
+              navigate(from, { replace: true });
             });
         }
       })
@@ -90,16 +91,6 @@ const Login = () => {
       });
   };
 
-  const getUserToken = (email) => {
-    fetch(`https://car-hut-server.vercel.app/jwt?email=${email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.accessToken) {
-          localStorage.setItem("carHut-token", data.accessToken);
-          navigate(from, { replace: true });
-        }
-      });
-  };
   return (
     <div className="sm:px-0 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
       <div className="flex flex-col items-center justify-between lg:flex-row">
@@ -109,8 +100,11 @@ const Login = () => {
         <div className="lg:w-1/2">
           <div className="w-full max-w-md p-8 space-y-3 rounded-xl dark:bg-primary dark:text-gray-100 mt-10">
             <h1 className="text-3xl font-bold text-center">Login</h1>
-            {/* <p className="text-red-500 my-3 text-center">{error}</p> */}
-            <form className="space-y-6 ng-untouched ng-pristine ng-valid">
+            <p className="text-red-500 my-3 text-center">{error}</p>
+            <form
+              onSubmit={handleLogIn}
+              className="space-y-6 ng-untouched ng-pristine ng-valid"
+            >
               <div className="space-y-1 text-sm">
                 <label htmlFor="userEmail" className="block dark:text-gray-400">
                   Email
@@ -144,7 +138,7 @@ const Login = () => {
               </div>
               <div>
                 <button className="block w-full p-3 text-center rounded-md dark:text-gray-200 bg-gradient-to-r from-primary to-secondary hover:to-indigo-600 hover:from-purple-600">
-                  {/* {loading ? <SmallSpinner /> : "Sign in"} */}
+                  {loading ? <SmallSpinner /> : "Sign in"}
                   Sign In
                 </button>
               </div>
@@ -158,7 +152,7 @@ const Login = () => {
             </div>
             <div className="flex justify-center space-x-4">
               <button
-                // onClick={handleSignInWithGoogle}
+                onClick={handleSignInWithGoogle}
                 aria-label="Log in with Google"
                 className="p-3 rounded-sm"
               >
