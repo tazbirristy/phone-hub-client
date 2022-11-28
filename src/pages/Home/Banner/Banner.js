@@ -9,7 +9,7 @@ const Banner = () => {
           <h1 className="text-5xl font-bold leading-none sm:text-6xl">
             PHONE
             <br />
-            <span className="dark:text-blue-800">HUB</span>
+            <span className="text-primary">HUB</span>
           </h1>
           <p className="mt-6 mb-8 text-lg sm:mb-12 ">
             We guarantee the best price for your old phone. Recycle your phone

@@ -5,18 +5,18 @@ import logo from "../../../../assets/logo.png";
 const Header = () => {
   const menuItems = (
     <React.Fragment>
-      <li className="text-blue-500 hover:text-indigo-500">
+      <li className="text-primary hover:text-indigo-500">
         <Link to="/">Home</Link>
       </li>
-      <li className="text-blue-500 hover:text-indigo-500">
+      <li className="text-primary hover:text-indigo-500">
         <Link to="/about">About</Link>
       </li>
-      <li className="text-blue-500 hover:text-indigo-500">
+      <li className="text-primary hover:text-indigo-500">
         <Link to="/blog">Blog</Link>
       </li>
       {/* {user?.uid ? ( */}
       <>
-        <li className="text-blue-500 hover:text-indigo-500">
+        <li className="text-primary hover:text-indigo-500">
           <Link to="/dashboard">Dashboard</Link>
         </li>
         {/* <li className="text-blue-500 hover:text-indigo-500">
@@ -26,7 +26,7 @@ const Header = () => {
           </li> */}
       </>
       {/* ) : ( */}
-      <li className="text-blue-500 hover:text-indigo-500">
+      <li className="text-primary hover:text-indigo-500">
         <Link to="/login">Login</Link>
       </li>
       {/* )} */}
@@ -62,7 +62,7 @@ const Header = () => {
         </div>
         <Link
           to="/"
-          className="btn btn-ghost normal-case font-bold text-3xl text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-blue-500"
+          className="btn btn-ghost normal-case font-bold text-3xl text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary"
         >
           <img src={logo} alt="car-hut" className="h-12 mr-3" /> PHONE HUB
         </Link>
