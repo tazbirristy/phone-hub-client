@@ -1,8 +1,131 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import register from "../../../../assets/register.png";
-import { Link } from "react-router-dom";
+import { AuthContext } from "../../../context/AuthProvider";
 
 const Register = () => {
+  const { createUser, updateUserProfile, googleProviderLogin } =
+    useContext(AuthContext);
+  const [error, setError] = useState("");
+  const [role, setRole] = useState("buyer");
+  const imgbbHostingKey = process.env.REACT_APP_imgbb_key;
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setError("Please provide a valid email");
+      return;
+    } else {
+      setError("");
+    }
+    const password = form.password.value;
+    if (!/(?=.{8,})/.test(password)) {
+      setError("Password should be 8 characters");
+      return;
+    }
+    if (!/(?=.*[a-zA-Z])/.test(password)) {
+      setError("Please provide one uppercase");
+      return;
+    }
+    if (!/(?=.*[!#$@%^&*? "])/.test(password)) {
+      setError("Please provide one special character");
+      return;
+    } else {
+      setError("");
+    }
+    const image = form.image.files[0];
+    const formData = new FormData();
+    formData.append("image", image);
+    const url = `https://api.imgbb.com/1/upload?key=${imgbbHostingKey}`;
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((imageData) => {
+        console.log(imageData.data.display_url);
+        // create user
+        createUser(email, password)
+          .then((result) => {
+            const user = result.user;
+
+            // user profile update
+            updateUserProfile(name, imageData.data.display_url)
+              .then(() => {
+                toast.success("User Created Successfully", { autoClose: 500 });
+              })
+              .catch((err) => console.error(err));
+            if (user?.uid) {
+              const users = {
+                name: name,
+                email: user.email,
+                userImg: imageData.data.display_url,
+                role,
+              };
+              console.log(user);
+              // save the user information to the database
+              fetch(`http://localhost:5000/user/${user?.email}`, {
+                method: "PUT",
+                headers: {
+                  "content-type": "application/json",
+                },
+                body: JSON.stringify(users),
+              })
+                .then((res) => res.json())
+                .then((data) => {
+                  console.log(data);
+                  navigate(from, { replace: true });
+                });
+            }
+          })
+          .catch((err) => console.error(err));
+      })
+      .catch((err) => console.error(err));
+  };
+
+  // signIn with google
+  const handleSignInWithGoogle = () => {
+    googleProviderLogin()
+      .then((result) => {
+        const user = result.user;
+        if (user?.uid) {
+          const users = {
+            name: user.displayName,
+            email: user.email,
+            userImg: user.photoURL,
+            role: "buyer",
+          };
+          console.log(user);
+          // save the user information to the database
+          fetch(`http://localhost:5000/user/${user?.email}`, {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(users),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              console.log(data);
+              toast.success("User Registered Successfully", { autoClose: 500 });
+              navigate(from, { replace: true });
+            });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        const errorMessage = error.message;
+        toast.error(errorMessage, { autoClose: 500 });
+      });
+  };
+
   return (
     <div className="sm:px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
       <div className="flex flex-col items-center justify-between lg:flex-row">
@@ -13,8 +136,11 @@ const Register = () => {
           <div className="w-full max-w-md p-8 space-y-3 rounded-xl dark:bg-primary dark:text-gray-100 mt-10">
             <h1 className="text-3xl font-bold text-center">Register</h1>
 
-            {/* <p className="text-red-500 my-3 text-center">{error}</p> */}
-            <form className="space-y-6 ng-untouched ng-pristine ng-valid">
+            <p className="text-red-500 my-3 text-center">{error}</p>
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-6 ng-untouched ng-pristine ng-valid"
+            >
               <div className="space-y-1 text-sm">
                 <label htmlFor="userName" className="block dark:text-gray-400">
                   Name
@@ -73,7 +199,7 @@ const Register = () => {
                   type="radio"
                   value="buyer"
                   name="role"
-                  // onChange={(e) => setRole(e.target.value)}
+                  onChange={(e) => setRole(e.target.value)}
                   required
                   checked
                 />{" "}
@@ -82,7 +208,7 @@ const Register = () => {
                   type="radio"
                   value="seller"
                   name="role"
-                  // onChange={(e) => setRole(e.target.value)}
+                  onChange={(e) => setRole(e.target.value)}
                   className="ml-4"
                   required
                 />{" "}
@@ -101,7 +227,7 @@ const Register = () => {
             </div>
             <div className="flex justify-center space-x-4">
               <button
-                // onClick={handleSignInWithGoogle}
+                onClick={handleSignInWithGoogle}
                 aria-label="Log in with Google"
                 className="p-3 rounded-sm"
               >

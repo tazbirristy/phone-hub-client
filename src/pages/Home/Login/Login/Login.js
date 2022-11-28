@@ -1,9 +1,105 @@
-import React from "react";
-import logIn from "../../../../assets/logIn.png";
+import React, { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import SmallSpinner from "./../../../../context/Loader/SmallSpinner";
-import { Link } from "react-router-dom";
+import { AuthContext } from "../../../context/AuthProvider";
 
 const Login = () => {
+  const { signIn, googleProviderLogin, loading, setLoading } =
+    useContext(AuthContext);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
+  // signIn with email and password
+  const handleLogIn = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setError("Please give a valid email");
+      return;
+    } else {
+      setError("");
+    }
+    const password = form.password.value;
+    if (!/(?=.{8,})/.test(password)) {
+      setError("Password should be 8 characters");
+      return;
+    }
+    if (!/(?=.*[a-zA-Z])/.test(password)) {
+      setError("Please give one uppercase");
+      return;
+    }
+    if (!/(?=.*[!#$@%^&*? "])/.test(password)) {
+      setError("Please provide one special character");
+      return;
+    } else {
+      setError("");
+    }
+
+    signIn(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        toast.success("User LoggedIn Successfully", { autoClose: 500 });
+        getUserToken(email);
+      })
+      .catch((error) => {
+        console.error(error.message);
+        const err = error.message;
+        toast.error(err, { autoClose: 500 });
+        setLoading(false);
+      });
+  };
+
+  // signIn with google
+  const handleSignInWithGoogle = () => {
+    googleProviderLogin()
+      .then((result) => {
+        const user = result.user;
+        if (user?.uid) {
+          const users = {
+            name: user.displayName,
+            email: user.email,
+            userImg: user.photoURL,
+            role: "buyer",
+          };
+          console.log(user);
+          // save the user information to the database
+          fetch(`https://car-hut-server.vercel.app/user/${user?.email}`, {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(users),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              console.log(data);
+              toast.success("User Register Successfully", { autoClose: 500 });
+              getUserToken(user.email);
+            });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        const errorMessage = error.message;
+        toast.error(errorMessage, { autoClose: 500 });
+      });
+  };
+
+  const getUserToken = (email) => {
+    fetch(`https://car-hut-server.vercel.app/jwt?email=${email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.accessToken) {
+          localStorage.setItem("carHut-token", data.accessToken);
+          navigate(from, { replace: true });
+        }
+      });
+  };
   return (
     <div className="sm:px-0 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
       <div className="flex flex-col items-center justify-between lg:flex-row">
