@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../../assets/logo.png";
+import { AuthContext } from "../../../../context/AuthProvider";
 
 const Header = () => {
+  const { user, logOut } = useContext(AuthContext);
+  const handleLogout = () => {
+    logOut()
+      .then(() => {})
+      .catch((err) => console.error(err));
+  };
   const menuItems = (
     <React.Fragment>
       <li className="text-primary hover:text-indigo-500">
@@ -14,22 +21,22 @@ const Header = () => {
       <li className="text-primary hover:text-indigo-500">
         <Link to="/blog">Blog</Link>
       </li>
-      {/* {user?.uid ? ( */}
-      <>
-        <li className="text-primary hover:text-indigo-500">
-          <Link to="/dashboard">Dashboard</Link>
-        </li>
-        {/* <li className="text-blue-500 hover:text-indigo-500">
+      {user?.uid ? (
+        <>
+          <li className="text-primary hover:text-indigo-500">
+            <Link to="/dashboard">Dashboard</Link>
+          </li>
+          <li className="text-blue-500 hover:text-indigo-500">
             <Link to="/login">
               <button onClick={handleLogout}>Logout</button>
             </Link>
-          </li> */}
-      </>
-      {/* ) : ( */}
-      <li className="text-primary hover:text-indigo-500">
-        <Link to="/login">Login</Link>
-      </li>
-      {/* )} */}
+          </li>
+        </>
+      ) : (
+        <li className="text-primary hover:text-indigo-500">
+          <Link to="/login">Login</Link>
+        </li>
+      )}
     </React.Fragment>
   );
 

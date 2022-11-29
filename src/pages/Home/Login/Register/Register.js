@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import register from "../../../../assets/register.png";
-import { AuthContext } from "../../../context/AuthProvider";
+import { AuthContext } from "../../../../context/AuthProvider";
 
 const Register = () => {
   const { createUser, updateUserProfile, googleProviderLogin } =

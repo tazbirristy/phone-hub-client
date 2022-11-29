@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import logIn from "../../../../assets/logIn.png";
-import { AuthContext } from "../../../context/AuthProvider";
+import { AuthContext } from "../../../../context/AuthProvider";
 import SmallSpinner from "./../../../../context/Loader/SmallSpinner";
 
 const Login = () => {
