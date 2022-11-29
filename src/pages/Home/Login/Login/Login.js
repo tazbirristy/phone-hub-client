@@ -45,7 +45,7 @@ const Login = () => {
         const user = result.user;
         console.log(user);
         toast.success("User LoggedIn Successfully", { autoClose: 500 });
-        navigate(from, { replace: true });
+        getUserToken(email);
       })
       .catch((error) => {
         console.error(error.message);
@@ -80,7 +80,7 @@ const Login = () => {
             .then((data) => {
               console.log(data);
               toast.success("User Register Successfully", { autoClose: 500 });
-              navigate(from, { replace: true });
+              getUserToken(user?.email);
             });
         }
       })
@@ -88,6 +88,16 @@ const Login = () => {
         console.error(error);
         const errorMessage = error.message;
         toast.error(errorMessage, { autoClose: 500 });
+      });
+  };
+  const getUserToken = (email) => {
+    fetch(`http://localhost:5000/jwt?email=${email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.accessToken) {
+          localStorage.setItem("phoneHub-token", data.accessToken);
+          navigate(from, { replace: true });
+        }
       });
   };
 
@@ -139,7 +149,6 @@ const Login = () => {
               <div>
                 <button className="block w-full p-3 text-center rounded-md dark:text-gray-200 bg-gradient-to-r from-primary to-secondary hover:to-indigo-600 hover:from-purple-600">
                   {loading ? <SmallSpinner /> : "Sign in"}
-                  Sign In
                 </button>
               </div>
             </form>

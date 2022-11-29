@@ -81,7 +81,7 @@ const Register = () => {
                 .then((res) => res.json())
                 .then((data) => {
                   console.log(data);
-                  navigate(from, { replace: true });
+                  getUserToken(email);
                 });
             }
           })
@@ -115,7 +115,7 @@ const Register = () => {
             .then((data) => {
               console.log(data);
               toast.success("User Registered Successfully", { autoClose: 500 });
-              navigate(from, { replace: true });
+              getUserToken(user?.email);
             });
         }
       })
@@ -123,6 +123,16 @@ const Register = () => {
         console.error(error);
         const errorMessage = error.message;
         toast.error(errorMessage, { autoClose: 500 });
+      });
+  };
+  const getUserToken = (email) => {
+    fetch(`http://localhost:5000/jwt?email=${email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.accessToken) {
+          localStorage.setItem("phoneHub-token", data.accessToken);
+          navigate(from, { replace: true });
+        }
       });
   };
 
