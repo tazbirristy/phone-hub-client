@@ -71,7 +71,7 @@ const Header = () => {
           to="/"
           className="btn btn-ghost normal-case font-bold text-3xl text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary"
         >
-          <img src={logo} alt="car-hut" className="h-12 mr-3" /> PHONE HUB
+          <img src={logo} alt="phone-hub" className="h-12 mr-3" /> PHONE HUB
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">

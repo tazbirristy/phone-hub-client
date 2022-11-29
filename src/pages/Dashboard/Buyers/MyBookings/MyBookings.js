@@ -9,7 +9,7 @@ const MyBookings = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/bookings/${user?.email}`, {
+      .get(`https://phone-hub-server.vercel.app/bookings/${user?.email}`, {
         headers: {
           authorization: `bearer ${localStorage.getItem("phoneHub-token")}`,
         },

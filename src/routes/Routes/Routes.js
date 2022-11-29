@@ -53,7 +53,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/category/${params.id}`),
+          fetch(`https://phone-hub-server.vercel.app/category/${params.id}`),
       },
     ],
   },
@@ -122,7 +122,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/booking/${params.id}`),
+          fetch(`https://phone-hub-server.vercel.app/booking/${params.id}`),
       },
     ],
   },

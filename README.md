@@ -2,8 +2,8 @@
 
 # Features
 
-Admin email: risty@gmail.com
-Admin Password: Ab@123456
+adminEmail: <risty@gmail.com>
+adminPassword: <Ab@123456>
 
 A buyer and seller convenient used phones site.
 We guarantee the best price for your old phone. Recycle your phone now for cash.Fast & easy trade-in for used phones in any condition, with free postage.
@@ -28,11 +28,11 @@ This Projects was created with the help of tailwind, mamba ui,daisy ui, storyset
 
 ## Live Link
 
-Hosted in Firebase ->[Live Link]()
+Hosted in Firebase ->[Live Link](https://phone-hub-26c46.web.app/)
 
 ## Context API
 
-[Api Link]()
+[Api Link](https://phone-hub-server.vercel.app/)
 
 ## Resources & Credits
 

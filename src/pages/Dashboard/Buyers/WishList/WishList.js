@@ -10,7 +10,7 @@ const WishList = () => {
     queryKey: ["category"],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/wishlists/${user?.email}`,
+        `https://phone-hub-server.vercel.app/wishlists/${user?.email}`,
         {
           headers: {
             authorization: `bearer ${localStorage.getItem("phoneHub-token")}`,

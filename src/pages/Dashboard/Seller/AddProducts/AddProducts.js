@@ -46,7 +46,7 @@ const AddProducts = () => {
             sellerEmail: user.email,
           };
           // save product information to the database
-          fetch("http://localhost:5000/products", {
+          fetch("https://phone-hub-server.vercel.app/products", {
             method: "POST",
             headers: {
               "content-type": "application/json",
@@ -182,7 +182,7 @@ const AddProducts = () => {
           <input
             type="number"
             {...register("yearsOfUse", {
-              required: "please enter how many year used this car",
+              required: "Enter how many year used this phone",
             })}
             className="input input-bordered w-full"
           />
@@ -197,7 +197,7 @@ const AddProducts = () => {
           <input
             type="number"
             {...register("buyingYear", {
-              required: "please enter which year you buy this car",
+              required: "Enter which year you buy this phone",
             })}
             className="input input-bordered w-full"
           />
@@ -287,7 +287,7 @@ const AddProducts = () => {
           <textarea
             type="text"
             {...register("description", {
-              required: "please provide details about your car",
+              required: "Provide details about your phone",
             })}
             className="input input-bordered w-full"
           />

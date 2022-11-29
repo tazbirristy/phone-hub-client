@@ -8,7 +8,7 @@ const Category = ({ category }) => {
       <figure>
         <img
           src={cateImg}
-          alt="car-category"
+          alt="phone-category"
           className="w-28 h-28 rounded-full"
         />
       </figure>

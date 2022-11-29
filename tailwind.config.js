@@ -4,7 +4,7 @@ module.exports = {
   daisyui: {
     themes: [
       {
-        carhuttheme: {
+        phonehubtheme: {
           primary: "#383CC1",
           secondary: "#1B98F5",
           accent: "#3A4256",
