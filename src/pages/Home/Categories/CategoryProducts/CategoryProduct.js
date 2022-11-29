@@ -79,39 +79,41 @@ const CategoryProduct = ({ product, setBookProduct }) => {
                 {description}
               </p>
               <div className="flex justify-between">
-                <p className="text-red-300 text-md font-bold">
+                <p className="text-yellow-400 text-md font-bold">
                   Buying Price: ${buyingPrice}
                 </p>
-                <p className="text-red-300 text-md font-bold">
+                <p className="text-yellow-400 text-md font-bold">
                   Selling Price: ${sealingPrice}
                 </p>
               </div>
               <div className="flex justify-between">
-                <p className="text-red-300 text-md font-bold">
+                <p className="text-yellow-400 text-md font-bold">
                   Buying Year: {buyingYear}
                 </p>
-                <p className="text-red-300 text-md font-bold">
+                <p className="text-yellow-400 text-md font-bold">
                   Years of Use: {yearsOfUse} Year's
                 </p>
               </div>
 
               <div className="flex justify-between">
-                <p className="text-gray-50 text-md">Location: {location}</p>
-                <p className="text-gray-50 text-md">Phone: {phnNumber}</p>
+                <p className="text-yellow-400 text-md">Location: {location}</p>
+                <p className="text-yellow-400 text-md">Phone: {phnNumber}</p>
               </div>
               <div className="flex justify-between">
                 {product?.verified && (
                   <div className="flex">
-                    <p className="text-gray-50 text-md">
+                    <p className="text-yellow-400 text-md">
                       Seller Name: {sellerName}{" "}
                     </p>{" "}
-                    <FaCheckCircle className="text-blue-700 text-xl ml-2" />
+                    <FaCheckCircle className="text-green-400 text-xl ml-2" />
                   </div>
                 )}
                 {!product?.verified && (
                   <p className="text-gray-50 text-md">
                     Seller Name: {sellerName}{" "}
-                    <span className="text-blue-700 text-xl">Not Verified</span>
+                    <span className="text-yellow-400 text-sm">
+                      Not Verified
+                    </span>
                   </p>
                 )}
 
