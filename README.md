@@ -28,7 +28,7 @@ This Projects was created with the help of tailwind, mamba ui,daisy ui, storyset
 
 ## Live Link
 
-Hosted in Firebase ->[Live Link](https://phone-hub-26c46.web.app/)
+Hosted in Firebase ->[Live Link](https://phone-hub-26c46.web.app)
 
 ## Context API
 
