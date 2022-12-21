@@ -2,7 +2,11 @@ import React from "react";
 
 const CustomerReview = () => {
   return (
-    <section className="mt-3 mb-3 dark:bg-gray-800">
+    <section
+      className="mt-3 mb-3 dark:bg-gray-800"
+      data-aos="fade-right"
+      data-aos-duration="2000"
+    >
       <div className="container mx-auto flex flex-col items-center pb-6 mb-4 md:p-10 md:px-12">
         <h1 className="text-4xl font-semibold leading-none text-center text-blue-800">
           What our customers are saying about us

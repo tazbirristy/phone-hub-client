@@ -13,7 +13,11 @@ const AdvertisementCard = ({ promotion }) => {
             backgroundZize: "cover",
           }}
         >
-          <div className="grid gap-6 grid-cols-1 lg:grid-cols-2">
+          <div
+            className="grid gap-6 grid-cols-1 lg:grid-cols-2"
+            data-aos="fade-right"
+            data-aos-duration="2000"
+          >
             <div>
               <img src={promotion?.productImg} alt="" />
             </div>

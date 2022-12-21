@@ -7,7 +7,11 @@ const Blog = () => {
       <h1 className="text-4xl text-center text-primary font-bold my-5">
         Welcome to My Blog
       </h1>
-      <div className="dark:bg-gray-50 dark:text-gray-100 my-12 text-justify">
+      <div
+        className="dark:bg-gray-50 dark:text-gray-100 my-12 text-justify"
+        data-aos="fade-left"
+        data-aos-duration="2000"
+      >
         <div className="max-w-7xl px-10 py-6 mx-auto rounded-lg shadow-sm border-8 border-primary bg-gray-800">
           <div className="flex items-center justify-between">
             <span className="text-sm dark:text-gray-400">Nov 28, 2022</span>

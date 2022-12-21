@@ -3,7 +3,11 @@ import React from "react";
 const AppStore = () => {
   return (
     <section className="py-6 dark:bg-gray-800 text-purple-50 mt-3">
-      <div className="container mx-auto flex flex-col justify-around p-4 text-center md:p-10 lg:flex-row">
+      <div
+        className="container mx-auto flex flex-col justify-around p-4 text-center md:p-10 lg:flex-row"
+        data-aos="zoom-out"
+        data-aos-duration="2000"
+      >
         <div className="flex flex-col justify-center lg:text-left">
           <p className="mb-1 text-xl font-medium tracking-widest uppercase text-blue-600">
             Want to Explore PHONE HUB App???

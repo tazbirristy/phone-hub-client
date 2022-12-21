@@ -24,7 +24,7 @@ We guarantee the best price for your old phone. Recycle your phone now for cash.
 13. Blog Section contains some questions and answeres related to react, javascript.
 14. About section contains general information about the site.
 
-This Projects was created with the help of tailwind, mamba ui,daisy ui, storyset.net, react-js, react router dom, react icons, firebase, react toastify,axios, react-hook-form, react-query.
+This Projects was created with the help of tailwind, mamba ui,daisy ui, storyset.net, react-js, react router dom, aos, react icons, firebase, react toastify,axios, react-hook-form, react-query.
 
 ## Live Link
 
